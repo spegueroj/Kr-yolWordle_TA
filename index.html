@@ -4,61 +4,123 @@
     <title>WORDLE KREYÒL AYITI</title>
     <!-- HTML Meta Tags - Tell the browser information about the website  -->
     
-    <meta name="description" content="Wordle clone by DoubleDebug" />
+    <meta name="description" content="Krèyol Wordle by Thayer Students" />
 
     <!-- Phone Scaling -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<link rel="stylesheet" href="style.css" />
-	<link href=
-"https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-
+	  <link rel="stylesheet" href="style.css" />
+	  <link href=
+      "https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel = "icon" href = "/images/kwordle.png">
     <link rel="stylesheet" href="./src/style.css" />
-    <link rel="icon" type="image/png" href="/wordle-speedrun/assets/favicon.png" />
   </head>
 
   
   <body>
     <h1 class="title">WORDLE KREYÒL AYITI </h1>
     <div id="game"></div>
+    
+    <div class = "container">
+      
+      <button type = "image" class = "infobutton" onclick = "openorclose()"> 
+        <img src = "/images/info.png" width = "60" height = "60" 
+        style = "position: absolute; left: 30px; top: 20px;"/></button>
+
+      <div class = "popup" id="popup">
+        <h2 class = "popup-header">Akeyi!</h2> 
+        <div class = "t1">
+          <p>
+            Jwèt sa a se menm konsèp ak Wordle, men an kreyòl ayisyen.
+            <br><br>
+            Chak jou, ou dwe devine yon mo ki gen <u>senk lèt</u> nan <u>sis esèy</u>.
+            <br><br>
+            Ak chak esèy, lèt yo chanje koulè.
+          </p>
+        </div>
+        <p>
+          <span style = "background-color: yellow;">Jòn</span> vlè di  lèt la kòrèk men nan move kote. 
+          <br><span style = "background-color: rgb(28, 205, 28);">Vèt</span> vlè di lèt la kòrèk e nan bon kote. 
+          <br><span style = "background-color: rgb(178, 178, 178);">Gri</span> vlè di lèt la pa nan mo a. <br><br>
+        </p>
+        <button type = "button" class = "closing" onclick = "openorclose()">OK</button>
+      </div>
+    </div>
+
+    <div class = "winner-popup" id = "winner-popup">
+      <h2>Felisitasyon!</h2> 
+      <p>
+        Ou fini pawòl la nan <span id = "tries"></span> eseye, bon travay!!
+      </p><br>
+      <button type = "button" class = "closing" onclick = "closeWinPopup()">OK</button>
+    </div>
 
     <div class = "keyboard">
       <div class = "row">
-        <button onclick = "keyFunction()" class = "btn">A</button>
-        <button onclick = "keyFunction()" class = "btn">E</button>
-        <button onclick = "keyFunction()" class = "btn">È</button>
-        <button onclick = "keyFunction()" class = "btn">I</button>
-        <button onclick = "keyFunction()" class = "btn">O</button>
-        <button onclick = "keyFunction()" class = "btn">Ò</button>
-        <button onclick = "keyFunction()" class = "btn">U</button>
+        <button class = "btn" data-key = "A" >A</button>
+        <button class = "btn" data-key = "E" >E</button>
+        <button class = "btn" data-key = "È" >È</button>
+        <button class = "btn" data-key = "I" >I</button>
+        <button class = "btn" data-key = "O" >O</button>
+        <button class = "btn" data-key = "Ò" >Ò</button>
+        <button class = "btn" data-key = "U" >U</button>
       </div>
       <div class="row">
-        <button class = "btn">B</button>
-        <button class = "btn">C</button>
-        <button class = "btn">D</button>
-        <button class = "btn">F</button>
-        <button class = "btn">G</button>
-        <button class = "btn">H</button>
-        <button class = "btn">J</button>
-        <button class = "btn">K</button>
-        <button class = "btn">L</button>
-        <button class = "btn">M</button>
+        <button class = "btn"  data-key = "B" >B</button>
+        <button class = "btn"  data-key = "C" >C</button>
+        <button class = "btn"  data-key = "D" >D</button>
+        <button class = "btn"  data-key = "F" >F</button>
+        <button class = "btn"  data-key = "G" >G</button>
+        <button class = "btn"  data-key = "H" >H</button>
+        <button class = "btn"  data-key = "J" >J</button>
+        <button class = "btn"  data-key = "K" >K</button>
+        <button class = "btn"  data-key = "L" >L</button>
+        <button class = "btn"  data-key = "M" >M</button>
       </div>
       <div class="row">
         <button class = "Enter">Enter</button>
-        <button class = "btn">N</button>
-        <button class = "btn">P</button>
-        <button class = "btn">R</button>
-        <button class = "btn">S</button>
-        <button class = "btn">T</button>
-        <button class = "btn">V</button>
-        <button class = "btn">W</button>
-        <button class = "btn">Y</button>
-        <button class = "btn">Z</button>
+        <button class = "btn" data-key = "N" >N</button>
+        <button class = "btn" data-key = "P" >P</button>
+        <button class = "btn" data-key = "R" >R</button>
+        <button class = "btn" data-key = "S" >S</button>
+        <button class = "btn" data-key = "T" >T</button>
+        <button class = "btn" data-key = "V" >V</button>
+        <button class = "btn" data-key = "W" >W</button>
+        <button class = "btn" data-key = "Y" >Y</button>
+        <button class = "btn" data-key = "Z" >Z</button>
         <button class = "delete">Delete</button>
       </div>
     </div>
 
+    <p class = "foot"></p>
+
     <script defer src="./src/index.js" type="module"></script>
   </body>
+
+  <script>
+
+    let num = 0;
+
+    function openorclose(){
+      if(num % 2 === 0)
+        openPopup();
+      else 
+        closePopup();
+      num++;
+    }
+    
+    const popup = document.getElementById("popup");
+    function openPopup(){
+      popup.classList.add("open-popup");
+      
+    }
+    function closePopup(){
+      popup.classList.remove("open-popup");
+    }
+
+    const p = document.getElementById("winner-popup");
+    function closeWinPopup(){
+      p.classList.remove("open-popup");
+    }
+  </script>
 </html>
