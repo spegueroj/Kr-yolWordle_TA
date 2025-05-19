@@ -5,27 +5,27 @@
     <!-- HTML Meta Tags - Tell the browser information about the website  -->
     
     <meta name="description" content="Krèyol Wordle by Thayer Students" />
-
-    <!-- Phone Scaling -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Phone Scaling/Zooming in -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
 	  <link rel="stylesheet" href="style.css" />
 	  <link href=
       "https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link rel = "icon" href = "/images/kwordle.png">
+    <link rel = "icon" href = "/images/download.png">
+
     <link rel="stylesheet" href="./src/style.css" />
   </head>
-
   
   <body>
     <h1 class="title">WORDLE KREYÒL AYITI </h1>
     <div id="game"></div>
-    
+    <div class = "wrapper-main">
     <div class = "container">
       
-      <button type = "image" class = "infobutton" onclick = "openorclose()"> 
-        <img src = "/images/info.png" width = "60" height = "60" 
-        style = "position: absolute; left: 30px; top: 20px;"/></button>
+      <button type = "button" class = "infobutton" onclick = "openorclose()"> 
+        ⓘ
+      </button>
 
       <div class = "popup" id="popup">
         <h2 class = "popup-header">Akeyi!</h2> 
@@ -78,7 +78,7 @@
         <button class = "btn"  data-key = "M" >M</button>
       </div>
       <div class="row">
-        <button class = "Enter">Enter</button>
+        <button class = "Enter">↵</button>
         <button class = "btn" data-key = "N" >N</button>
         <button class = "btn" data-key = "P" >P</button>
         <button class = "btn" data-key = "R" >R</button>
@@ -88,11 +88,12 @@
         <button class = "btn" data-key = "W" >W</button>
         <button class = "btn" data-key = "Y" >Y</button>
         <button class = "btn" data-key = "Z" >Z</button>
-        <button class = "delete">Delete</button>
+        <button class = "delete">⌫</button>
       </div>
     </div>
 
     <p class = "foot"></p>
+    </div>
 
     <script defer src="./src/index.js" type="module"></script>
   </body>
