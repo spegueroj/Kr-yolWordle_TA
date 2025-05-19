@@ -4,17 +4,24 @@
   --empty-bg: #8e8e8e;
   --wrong-bg: #ebc729;/*wrong place*/
   --right-bg: #69ba61;/*right place*/
-  --box-size: 70px; /* Box size as a variable for easier adjustments */
+  --box-size: 57px; /* Box size as a variable for easier adjustments */
 }
 
 html, body {
   /*background: linear-gradient(0.25turn, red, blue);*/
   height: 100%;
-  background: linear-gradient(0deg, #f1072e 50%, #001eff 50%);
+  overflow-y: hidden;
+  background-image: url("/images/haiti-flag.png"); 
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+ 
+  /*background: linear-gradient(0deg, #f1072e 50%, #001eff 50%);*/
   margin: 0;
   padding: 0;
   /*font-family: 'Arial', sans-serif;*/
 }
+
 
 #game {
   display: flex;
@@ -32,6 +39,7 @@ html, body {
   position: absolute;
   top: 0;
   font-size: 1.3rem;
+  place-items: center;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.1);
   padding: 0 60px 60px;
@@ -70,8 +78,10 @@ html, body {
   font-size: 2.4rem;
   font-family: 'Arial', sans-serif;
   transition: background-color 0.3s ease;
-  border-radius: 10px;
-  background-color: #b8b4ec;
+  border-radius: 5px;
+  background-color: rgba(238, 202, 202, 0.952);
+  /*background-color: #b8b4ec;
+  opacity: .7;*/
 
 }
 
@@ -101,26 +111,13 @@ html, body {
   100% { transform: scaleY(1); }
 }
 
-@media (max-width: 600px) {
-  .box {
-    width: 10vw;
-    height: 10vw;
-  }
-
-  .grid {
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
-
 .title {
   color: white;
   text-align: center;
   font-family: "Bebas Neue", sans-serif;
   /*font-size: 2rem;
   font-weight: 900;*/
-  font-size: 2rem;
-  margin-bottom: 30px;
- 
+  font-size: 1.7rem;
 }
 
 .popup .t1{
@@ -137,17 +134,18 @@ html, body {
 .keyboard{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  text-align: center;
   justify-content: center;
   gap: 0.25em;
+  top: 0px;
 }
 
 .keyboard .row{
   display: flex;
   flex-direction: row;
-  align-items: center;
+  text-align: center;
   justify-content: center;
-  gap: 0.25em;
+  gap: 2px;
 }
 
 .Enter{
@@ -156,10 +154,10 @@ html, body {
   background-color: rgba(238, 202, 202, 0.952);
   display: inline-block;
   padding: .4rem 1rem;
-  margin: .1rem;
+  margin: 0rem;
   font-size: 1.3rem;
-  border-radius: 10px;
-  height: 50px;
+  border-radius: 5px;
+  height: 60px;
   width: 90px;
 }
 
@@ -171,9 +169,9 @@ html, body {
   padding: .4rem 1rem;
   margin: .1rem;
   font-size: 1.3rem;
-  border-radius: 10px;
-  height: 50px;
-  width: 100px;
+  border-radius: 5px;
+  height: 60px;
+  width: 90px;
 }
 
 .btn{
@@ -181,12 +179,11 @@ html, body {
   border-color: black;
   background-color: rgba(238, 202, 202, 0.952);
   display: inline-block;
-  padding: .4rem 1rem;
-  margin: .1rem;
+  margin: 0rem;
   font-size: 1.3rem;
-  border-radius: 10px;
-  height: 50px;
-  width: 90px;
+  border-radius: 5px;
+  height: 60px;
+  width: 50px;
 }
 
 /* Color green key */
@@ -195,12 +192,11 @@ html, body {
   border-color: black;
   background-color: var(--right-bg);
   display: inline-block;
-  padding: .4rem 1rem;
-  margin: .1rem;
+  margin: 0rem;
   font-size: 1.3rem;
-  border-radius: 10px;
-  height: 50px;
-  width: 90px;
+  border-radius: 5px;
+  height: 60px;
+  width: 50px;
 }
 
 /* Color yellow key */
@@ -209,12 +205,11 @@ html, body {
   border-color: black;
   background-color: var(--wrong-bg);
   display: inline-block;
-  padding: .4rem 1rem;
-  margin: .1rem;
+  margin: 0rem;
   font-size: 1.3rem;
-  border-radius: 10px;
-  height: 50px;
-  width: 90px;
+  border-radius: 5px;
+  height: 60px;
+  width: 50px;
 }
 
 /* Color gray key */
@@ -223,12 +218,15 @@ html, body {
   border-color: black;
   background-color: var(--empty-bg);
   display: inline-block;
-  padding: .4rem 1rem;
-  margin: .1rem;
+  margin: 0rem;
   font-size: 1.3rem;
-  border-radius: 10px;
-  height: 50px;
-  width: 90px;
+  border-radius: 5px;
+  height: 60px;
+  width: 50px;
+}
+
+button {
+  cursor: pointer;
 }
 
 /*
@@ -275,9 +273,9 @@ html, body {
 
 .closing{
   background-color: #62d857;
-  margin-left: 150px;
   border: none;
-  cursor: pointer;
+
+  color: black;
   height: 50px;
   font-size: .9rem;
   font-weight: 500;
@@ -296,72 +294,97 @@ html, body {
   transform: translate(-50%, -50%) scale(0.1);
 }
 
+
 .infobutton{
+  font-size: 40px;
   background: none;
-  border: 0;
-  outline: none;
-  cursor: pointer;
+  border: none;
+  color: white;
+  position: absolute;
+  top: 15px;
+  left: 20px
 }
 
-/*
-.keyboard--hidden {
-	bottom: -100%;
+@media only screen and (max-width: 600px) {
+  
+  .wrapper-main{
+    width: 100%;
+  }
+
+  .title{
+    font-size: 2rem;
+  }
+
+  .delete{
+    color: black;
+    height:50px;
+    width: 50px;
+    border-radius: 0px;
+  }
+
+  .Enter{
+    text-align: justify;
+    color: black;
+    height: 50px;
+    width: 50px;
+    border-radius: 0px;
+  }
+
+  .btn{
+    padding: 0px;
+    color: black;
+    border-radius: 0px;
+    height: 50px;
+    width: 40px;
+  }
+  
+  /* Color green key */
+  .btn0{
+    padding: 0px;
+    color: black;
+    border-radius: 0px;
+    height: 50px;
+    width: 40px;
+  }
+  
+  /* Color yellow key */
+  .btn1{
+    padding: 0px;
+    color: black;
+    font-size: 1.3rem;
+    border-radius: 0px;
+    height: 50px;
+    width: 40px;
+  }
+  
+  /* Color gray key */
+  .btn2{
+    padding: 0px;
+    color: black;
+    border-radius: 0px;
+    height: 50px;
+    width: 40px;
+  }
+
+  .box {
+    width: 60px;
+    height: 60px;
+  }
+
+  .grid {
+    place-items: center;
+    gap: 27px;
+    margin: 30px;
+    grid-template-columns: repeat(5, 40px);
+    grid-template-rows: repeat(6, 40px);
+  }
+
+  .winner-popup{
+    width: 250px;
+  }
+
+  .closing{
+    margin-left: 100px;
+  }
+
 }
-
-.keyboard__keys {
-	text-align: center;
-}
-
-
-.keyboard__key {
-	height: 45px;
-	width: 6%;
-	max-width: 90px;
-	margin: 3px;
-	border-radius: 4px;
-	border: none;
-	background: rgba(255, 255, 255, 0.2);
-	
-	font-size: 1.05rem;
-	outline: none;
-	cursor: pointer;
-	display: inline-flex;
-	justify-content: center;
-	align-items: center;
-	vertical-align: top;
-	padding: 0;
-	-webkit-tap-highlight-color: transparent;
-	position: relative;
-}
-
-.keyboard__key:active {
-	background: rgba(255, 255, 255, 0.12);
-}
-
-.keyboard__key--wide {
-	width: 12%;
-}
-
-.keyboard__key--extra--wide {
-	width: 36%;
-	max-width: 500px;
-}
-
-.keyboard__key--activatable::after {
-	content: "";
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	width: 8px;
-	height: 8px;
-	background: rgba(0, 0, 0, 0.4);
-	border-radius: 50%;
-}
-
-.keyboard__key--active::after {
-	background: #08ff00;
-}
-
-.keyboard__key--dark {
-	background: rgba(0, 0, 0, 0.25);
-}*/
