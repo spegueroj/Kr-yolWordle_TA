@@ -3,6 +3,7 @@ import {realDictionary } from './dictionary.js';
 
 // Use `const` for constants and `let` for variables that change
 const dictionary = realDictionary;
+const date = new Date();
 const state = {
   secret: dictionary[Math.floor(Math.random() * dictionary.length)],
   grid: Array(6).fill().map(() => Array(5).fill('')),
@@ -26,6 +27,7 @@ function drawGrid(container) {
 
   container.appendChild(grid);
 }
+
 
 // Function to update grid based on the state
 function updateGrid() {
@@ -56,6 +58,7 @@ function registerKeyboardEvents() {
       handleEnterKey();
     } else if (key === 'Backspace') {
       removeLetter();
+      localStorage.clear();
     } else if (isLetter(key)) {
       addLetter(key);
     }
@@ -69,11 +72,15 @@ function handleEnterKey() {
   if (state.currentCol === 5) {
     const word = getCurrentWord();
     if (isWordValid(word)) {
+      if(localStorage.getItem('inputs'))
+        localStorage.setItem('inputs', localStorage.getItem('inputs') + " " + word);
+      else 
+        localStorage.setItem('inputs', word );
       revealWord(word);
       state.currentRow++;
       state.currentCol = 0;
     } else {
-      alert('Not a valid word.');
+      alert('Pa yon mo valab.');
     }
   }
 }
@@ -125,13 +132,33 @@ function revealWord(guess) {
     const letterPosition = getPositionOfOccurrence(guess, letter, i);
     
     if (letter === state.secret[i]) 
+    {
+      if(localStorage.getItem('coloring'))
+        localStorage.setItem('coloring', 
+          localStorage.getItem('coloring') + '0');
+      else
+        localStorage.setItem('coloring', '0');
       c[row][i] = 0;//green
+    }
     else if (state.secret.includes(letter)) 
+    {
+      if(localStorage.getItem('coloring'))
+        localStorage.setItem('coloring', 
+          localStorage.getItem('coloring') + '1');
+      else
+        localStorage.setItem('coloring', '1');
       c[row][i] = 1;//yellow 
+    }
     else 
+    {
+      if(localStorage.getItem('coloring'))
+        localStorage.setItem('coloring', 
+          localStorage.getItem('coloring') + '2');
+      else
+        localStorage.setItem('coloring', '2');
       c[row][i] = 2;//gray 
-
-
+    }
+    
     setTimeout(() => {
       if (letter === state.secret[i]) {
         box.classList.add('right');
@@ -147,6 +174,7 @@ function revealWord(guess) {
     box.style.animationDelay = `${i * animationDuration / 2}ms`;
   });
   
+  localStorage.setItem('coloring', localStorage.getItem('coloring') + " ");
 
   const isWinner = state.secret === guess;
   const isGameOver = state.currentRow === 5;
@@ -187,8 +215,6 @@ function updateKeyboard(){
       key.classList.add('btn0'); 
     }
     else if(color === 1){
-
-
       key.classList.add('btn1'); 
     }
     else{
@@ -235,9 +261,48 @@ function startup() {
   drawGrid(game);
   registerKeyboardEvents();
   window.alert(state.secret);
+  defaultGrid();
+  reColor();
 }
 
+function defaultGrid()
+{
+  const words = localStorage.getItem('inputs').split(" ");
 
+  for(let i = 0; i < words.length; i++)
+  {
+    const letters = words[i].split("");
+    for(let j = 0; j < letters.length; j++)
+    {
+      state.grid[i][j] = letters[j];
+    }
+  }
+  state.currentRow = words.length;
+  updateGrid();
+}
+
+function reColor()
+{
+  const rcolors = localStorage.getItem('coloring').split(" ");
+
+  for(let i = 0; i < rcolors.length; i++)
+  {
+    const lcolors = rcolors[i].split("");
+
+    for(let j = 0; j < lcolors.length; j++)
+    {
+      const box = document.getElementById(`box${i}${j}`);
+      if (lcolors[j] === '0') {
+        box.classList.add('right');
+      } else if (lcolors[j] === '1') {
+        box.classList.add('wrong');
+     
+      } else {
+        box.classList.add('empty');
+      }
+    }
+  }
+}
 
 //handles the keyboard buttons - letters
 const buttons = document.querySelectorAll('.btn');
