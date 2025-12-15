@@ -314,19 +314,6 @@ button {
   cursor: pointer;
 }
 
-/*
-.btn.empty{
-  background: var(--empty-bg);
-}
-
-.btn.right{
-  background: var(--right-bg);
-}
-
-.btn.wrong{
-  background: var(--wrong-bg);
-}*/
-
 /* Remove old focus visibility rule - replaced with proper focus styles above */
 
 .popup-header{
@@ -377,6 +364,25 @@ button {
   transform: translate(-50%, -50%) scale(0.1);
 }
 
+
+.homebutton {
+  font-size: 36px;
+  background: none;
+  border: none;
+  color: white;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  opacity: 0.85;
+}
+
+.homebutton:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  color: #fbbf24;
+}
 
 .infobutton{
   font-size: 40px;

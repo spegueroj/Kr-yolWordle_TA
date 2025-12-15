@@ -21,7 +21,7 @@ const server = http.createServer((req, res) => {
 
   let filePath = '.' + req.url;
   if (filePath === './') {
-    filePath = './src/index.html';
+    filePath = './src/home.html';
   }
 
   const extname = String(path.extname(filePath)).toLowerCase();
@@ -45,6 +45,7 @@ const server = http.createServer((req, res) => {
 
 server.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
-  console.log(`Open http://localhost:${port}/src/index.html in your browser`);
+  console.log(`Open http://localhost:${port}/ for home page`);
+  console.log(`Open http://localhost:${port}/src/index.html to go directly to the game`);
 });
 
