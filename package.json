@@ -1,0 +1,15 @@
+{
+  "name": "kreyol-wordle",
+  "version": "1.0.0",
+  "description": "Krèyol Wordle game",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "browser-sync start --server . --files \"src/**/*\" \"images/**/*\" --startPath src/index.html --port 8000",
+    "main": "browser-sync start --server . --files \"src/**/*\" \"images/**/*\" --startPath src/index.html --port 8000"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.29.3"
+  }
+}
+

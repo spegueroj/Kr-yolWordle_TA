@@ -64,6 +64,7 @@ html, body {
   grid-template-columns: repeat(5, var(--box-size)); /* Use variable for size */
   grid-template-rows: repeat(6, var(--box-size));
   gap: 8px;
+  perspective: 1000px;
 }
 
 .box {
@@ -82,7 +83,6 @@ html, body {
   background-color: rgba(238, 202, 202, 0.952);
   /*background-color: #b8b4ec;
   opacity: .7;*/
-
 }
 
 .bempty{
@@ -103,12 +103,20 @@ html, body {
 
 .animated {
   animation: flip 0.5s ease-in-out;
+  transform-origin: center;
+  transform-style: preserve-3d;
 }
 
 @keyframes flip {
-  0% { transform: scaleY(1); }
-  50% { transform: scaleY(0); }
-  100% { transform: scaleY(1); }
+  0% { 
+    transform: rotateX(0deg);
+  }
+  50% { 
+    transform: rotateX(90deg);
+  }
+  100% { 
+    transform: rotateX(0deg);
+  }
 }
 
 .title {
@@ -118,6 +126,18 @@ html, body {
   /*font-size: 2rem;
   font-weight: 900;*/
   font-size: 1.7rem;
+}
+
+#answer-display {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+  text-transform: uppercase;
 }
 
 .popup .t1{
@@ -131,98 +151,163 @@ html, body {
 	height: calc(100vh - 295px);
 }*/
 
-.keyboard{
+.keyboard {
   display: flex;
   flex-direction: column;
   text-align: center;
   justify-content: center;
-  gap: 0.25em;
-  top: 0px;
+  gap: 0.5em;
+  padding: 1rem;
+  margin-top: 1rem;
 }
 
-.keyboard .row{
+.keyboard .row {
   display: flex;
   flex-direction: row;
   text-align: center;
   justify-content: center;
-  gap: 2px;
+  gap: 0.4em;
 }
 
-.Enter{
-  font-weight: bold;
-  border-color: black;
-  background-color: rgba(238, 202, 202, 0.952);
-  display: inline-block;
-  padding: .4rem 1rem;
-  margin: 0rem;
-  font-size: 1.3rem;
-  border-radius: 5px;
-  height: 60px;
-  width: 90px;
+/* Base button styles */
+.Enter,
+.delete,
+.btn {
+  font-weight: 600;
+  font-family: 'Arial', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  height: 58px;
+  min-width: 50px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 
+              0 1px 2px rgba(0, 0, 0, 0.08);
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
 }
 
-.delete{
-  font-weight: bold;
-  border-color: black;
-  background-color: rgba(238, 202, 202, 0.952);
-  display: inline-block;
-  padding: .4rem 1rem;
-  margin: .1rem;
-  font-size: 1.3rem;
-  border-radius: 5px;
-  height: 60px;
-  width: 90px;
+/* Wave animation for keyboard keys */
+@keyframes keyboardWave {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-5px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
-.btn{
-  font-weight: bold;
-  border-color: black;
+.keyboard .btn,
+.keyboard .Enter,
+.keyboard .delete {
+  animation: keyboardWave 0.6s ease-out forwards;
+}
+
+/* Letter buttons */
+.btn {
   background-color: rgba(238, 202, 202, 0.952);
-  display: inline-block;
-  margin: 0rem;
-  font-size: 1.3rem;
-  border-radius: 5px;
-  height: 60px;
+  color: #333;
   width: 50px;
+}
+
+/* Enter and Delete buttons */
+.Enter,
+.delete {
+  background-color: rgba(238, 202, 202, 0.952);
+  color: #333;
+  padding: 0.4rem 1rem;
+  font-size: 1rem;
+}
+
+.Enter {
+  width: 90px;
+}
+
+.delete {
+  width: 90px;
+}
+
+/* Hover effects */
+.btn:hover,
+.Enter:hover,
+.delete:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15), 
+              0 2px 4px rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Active/pressed state */
+.btn:active,
+.Enter:active,
+.delete:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.1s ease;
+}
+
+/* Focus state for accessibility */
+.btn:focus,
+.Enter:focus,
+.delete:focus {
+  outline: 3px solid rgba(72, 140, 244, 0.5);
+  outline-offset: 2px;
 }
 
 /* Color green key */
-.btn0{
-  font-weight: bold;
-  border-color: black;
+.btn0 {
   background-color: var(--right-bg);
-  display: inline-block;
-  margin: 0rem;
-  font-size: 1.3rem;
-  border-radius: 5px;
-  height: 60px;
+  color: white;
   width: 50px;
+  height: 58px;
+  min-width: 50px;
+  border-radius: 8px;
+  font-weight: bold;
 }
 
 /* Color yellow key */
-.btn1{
-  font-weight: bold;
-  border-color: black;
+.btn1 {
   background-color: var(--wrong-bg);
-  display: inline-block;
-  margin: 0rem;
-  font-size: 1.3rem;
-  border-radius: 5px;
-  height: 60px;
+  color: #333;
   width: 50px;
+  height: 58px;
+  min-width: 50px;
+  border-radius: 8px;
 }
 
 /* Color gray key */
-.btn2{
-  font-weight: bold;
-  border-color: black;
+.btn2 {
   background-color: var(--empty-bg);
-  display: inline-block;
-  margin: 0rem;
-  font-size: 1.3rem;
-  border-radius: 5px;
-  height: 60px;
+  color: white;
   width: 50px;
+  height: 58px;
+  min-width: 50px;
+  border-radius: 8px;
+}
+
+/* Smooth color transitions */
+.btn,
+.Enter,
+.delete {
+  transition: background-color 0.3s ease,
+              color 0.3s ease,
+              transform 0.2s ease,
+              box-shadow 0.2s ease,
+              border-color 0.2s ease;
 }
 
 button {
@@ -242,9 +327,7 @@ button {
   background: var(--wrong-bg);
 }*/
 
-.btn:focus {
-  visibility: hidden;
-}
+/* Remove old focus visibility rule - replaced with proper focus styles above */
 
 .popup-header{
   text-align: center;
@@ -315,55 +398,73 @@ button {
     font-size: 2rem;
   }
 
-  .delete{
-    color: black;
-    height:50px;
-    width: 50px;
-    border-radius: 0px;
+  .keyboard {
+    padding: 0.5rem;
+    gap: 0.3em;
   }
 
-  .Enter{
-    text-align: justify;
-    color: black;
-    height: 50px;
-    width: 50px;
-    border-radius: 0px;
+  .keyboard .row {
+    gap: 0.25em;
   }
 
-  .btn{
-    padding: 0px;
-    color: black;
-    border-radius: 0px;
-    height: 50px;
+  .delete {
+    color: #333;
+    height: 48px;
+    width: 60px;
+    font-size: 0.9rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .Enter {
+    color: #333;
+    height: 48px;
+    width: 60px;
+    font-size: 0.9rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .btn {
+    padding: 0;
+    color: #333;
+    height: 48px;
     width: 40px;
+    font-size: 1rem;
+    min-width: 40px;
+    border-radius: 8px;
   }
   
   /* Color green key */
-  .btn0{
-    padding: 0px;
-    color: black;
-    border-radius: 0px;
-    height: 50px;
+  .btn0 {
+    padding: 0;
+    color: white;
+    height: 48px;
     width: 40px;
+    font-size: 1rem;
+    min-width: 40px;
+    border-radius: 8px;
+    font-weight: bold;
   }
   
   /* Color yellow key */
-  .btn1{
-    padding: 0px;
-    color: black;
-    font-size: 1.3rem;
-    border-radius: 0px;
-    height: 50px;
+  .btn1 {
+    padding: 0;
+    color: #333;
+    font-size: 1rem;
+    height: 48px;
     width: 40px;
+    min-width: 40px;
+    border-radius: 8px;
   }
   
   /* Color gray key */
-  .btn2{
-    padding: 0px;
-    color: black;
-    border-radius: 0px;
-    height: 50px;
+  .btn2 {
+    padding: 0;
+    color: white;
+    height: 48px;
     width: 40px;
+    font-size: 1rem;
+    min-width: 40px;
+    border-radius: 8px;
   }
 
   .box {

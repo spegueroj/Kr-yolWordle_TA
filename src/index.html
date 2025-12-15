@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8">
     <title>WORDLE KREYÒL AYITI</title>
     <!-- HTML Meta Tags - Tell the browser information about the website  -->
     
@@ -12,24 +13,23 @@
 	  <link rel="stylesheet" href="style.css" />
 	  <link href=
       "https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link rel = "icon" href = "/images/download.png">
-
-    <link rel="stylesheet" href="./src/style.css" />
+    <link rel = "icon" href = "../images/download.png">
   </head>
   
   <body>
     <h1 class="title">WORDLE KREYÒL AYITI </h1>
+    <div id="answer-display"></div>
     <div id="game"></div>
     <div class = "wrapper-main">
     <div class = "container">
       
-      <button type = "button" class = "infobutton" onclick = "openorclose()"> 
+      <button type="button" class="infobutton" id="info-button" aria-label="Show game instructions"> 
         ⓘ
       </button>
 
-      <div class = "popup" id="popup">
-        <h2 class = "popup-header">Akeyi!</h2> 
-        <div class = "t1">
+      <div class="popup" id="popup">
+        <h2 class="popup-header">Akeyi!</h2> 
+        <div class="t1">
           <p>
             Jwèt sa a se menm konsèp ak Wordle, men an kreyòl ayisyen.
             <br><br>
@@ -39,89 +39,99 @@
           </p>
         </div>
         <p>
-          <span style = "background-color: yellow;">Jòn</span> vlè di  lèt la kòrèk men nan move kote. 
-          <br><span style = "background-color: rgb(28, 205, 28);">Vèt</span> vlè di lèt la kòrèk e nan bon kote. 
-          <br><span style = "background-color: rgb(178, 178, 178);">Gri</span> vlè di lèt la pa nan mo a. <br><br>
+          <span style="background-color: yellow;">Jòn</span> vlè di  lèt la kòrèk men nan move kote. 
+          <br><span style="background-color: rgb(28, 205, 28);">Vèt</span> vlè di lèt la kòrèk e nan bon kote. 
+          <br><span style="background-color: rgb(178, 178, 178);">Gri</span> vlè di lèt la pa nan mo a. <br><br>
         </p>
-        <button type = "button" class = "closing" onclick = "openorclose()">OK</button>
+        <button type="button" class="closing" id="close-info-popup">OK</button>
       </div>
     </div>
 
-    <div class = "winner-popup" id = "winner-popup">
+    <div class="winner-popup" id="winner-popup">
       <h2>Felisitasyon!</h2> 
       <p>
-        Ou fini pawòl la nan <span id = "tries"></span> eseye, bon travay!!
+        Ou fini pawòl la nan <span id="tries"></span> eseye, bon travay!!
       </p><br>
-      <button type = "button" class = "closing" onclick = "closeWinPopup()">OK</button>
+      <button type="button" class="closing" id="close-winner-popup">OK</button>
     </div>
 
-    <div class = "keyboard">
-      <div class = "row">
-        <button class = "btn" data-key = "A" >A</button>
-        <button class = "btn" data-key = "E" >E</button>
-        <button class = "btn" data-key = "È" >È</button>
-        <button class = "btn" data-key = "I" >I</button>
-        <button class = "btn" data-key = "O" >O</button>
-        <button class = "btn" data-key = "Ò" >Ò</button>
-        <button class = "btn" data-key = "U" >U</button>
+    <div class="keyboard">
+      <div class="row">
+        <button class="btn" data-key="A" aria-label="Letter A">A</button>
+        <button class="btn" data-key="E" aria-label="Letter E">E</button>
+        <button class="btn" data-key="È" aria-label="Letter È">È</button>
+        <button class="btn" data-key="I" aria-label="Letter I">I</button>
+        <button class="btn" data-key="O" aria-label="Letter O">O</button>
+        <button class="btn" data-key="Ò" aria-label="Letter Ò">Ò</button>
+        <button class="btn" data-key="U" aria-label="Letter U">U</button>
       </div>
       <div class="row">
-        <button class = "btn"  data-key = "B" >B</button>
-        <button class = "btn"  data-key = "C" >C</button>
-        <button class = "btn"  data-key = "D" >D</button>
-        <button class = "btn"  data-key = "F" >F</button>
-        <button class = "btn"  data-key = "G" >G</button>
-        <button class = "btn"  data-key = "H" >H</button>
-        <button class = "btn"  data-key = "J" >J</button>
-        <button class = "btn"  data-key = "K" >K</button>
-        <button class = "btn"  data-key = "L" >L</button>
-        <button class = "btn"  data-key = "M" >M</button>
+        <button class="btn" data-key="B" aria-label="Letter B">B</button>
+        <button class="btn" data-key="C" aria-label="Letter C">C</button>
+        <button class="btn" data-key="D" aria-label="Letter D">D</button>
+        <button class="btn" data-key="F" aria-label="Letter F">F</button>
+        <button class="btn" data-key="G" aria-label="Letter G">G</button>
+        <button class="btn" data-key="H" aria-label="Letter H">H</button>
+        <button class="btn" data-key="J" aria-label="Letter J">J</button>
+        <button class="btn" data-key="K" aria-label="Letter K">K</button>
+        <button class="btn" data-key="L" aria-label="Letter L">L</button>
+        <button class="btn" data-key="M" aria-label="Letter M">M</button>
       </div>
       <div class="row">
-        <button class = "Enter">↵</button>
-        <button class = "btn" data-key = "N" >N</button>
-        <button class = "btn" data-key = "P" >P</button>
-        <button class = "btn" data-key = "R" >R</button>
-        <button class = "btn" data-key = "S" >S</button>
-        <button class = "btn" data-key = "T" >T</button>
-        <button class = "btn" data-key = "V" >V</button>
-        <button class = "btn" data-key = "W" >W</button>
-        <button class = "btn" data-key = "Y" >Y</button>
-        <button class = "btn" data-key = "Z" >Z</button>
-        <button class = "delete">⌫</button>
+        <button class="Enter" aria-label="Enter">↵</button>
+        <button class="btn" data-key="N" aria-label="Letter N">N</button>
+        <button class="btn" data-key="P" aria-label="Letter P">P</button>
+        <button class="btn" data-key="R" aria-label="Letter R">R</button>
+        <button class="btn" data-key="S" aria-label="Letter S">S</button>
+        <button class="btn" data-key="T" aria-label="Letter T">T</button>
+        <button class="btn" data-key="V" aria-label="Letter V">V</button>
+        <button class="btn" data-key="W" aria-label="Letter W">W</button>
+        <button class="btn" data-key="Y" aria-label="Letter Y">Y</button>
+        <button class="btn" data-key="Z" aria-label="Letter Z">Z</button>
+        <button class="delete" aria-label="Delete">⌫</button>
       </div>
     </div>
 
     <p class = "foot"></p>
     </div>
 
-    <script defer src="./src/index.js" type="module"></script>
+    <script defer src="index.js" type="module"></script>
   </body>
 
   <script>
-
-    let num = 0;
-
-    function openorclose(){
-      if(num % 2 === 0)
-        openPopup();
-      else 
-        closePopup();
-      num++;
-    }
-    
-    const popup = document.getElementById("popup");
-    function openPopup(){
-      popup.classList.add("open-popup");
+    // Info popup handlers
+    (function() {
+      const infoButton = document.getElementById('info-button');
+      const infoPopup = document.getElementById('popup');
+      const closeInfoButton = document.getElementById('close-info-popup');
       
-    }
-    function closePopup(){
-      popup.classList.remove("open-popup");
-    }
-
-    const p = document.getElementById("winner-popup");
-    function closeWinPopup(){
-      p.classList.remove("open-popup");
-    }
+      function openInfoPopup() {
+        if (infoPopup) {
+          infoPopup.classList.add('open-popup');
+          infoPopup.classList.remove('closing-popup');
+        }
+      }
+      
+      function closeInfoPopup() {
+        if (infoPopup) {
+          infoPopup.classList.remove('open-popup');
+          infoPopup.classList.add('closing-popup');
+        }
+      }
+      
+      if (infoButton) {
+        infoButton.addEventListener('click', () => {
+          if (infoPopup && infoPopup.classList.contains('open-popup')) {
+            closeInfoPopup();
+          } else {
+            openInfoPopup();
+          }
+        });
+      }
+      
+      if (closeInfoButton) {
+        closeInfoButton.addEventListener('click', closeInfoPopup);
+      }
+    })();
   </script>
 </html>
